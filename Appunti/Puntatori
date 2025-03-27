@@ -1,0 +1,16 @@
+Il puntatore è una variabile che punta ad un indirizzo di memoria.
+In una architettura a 32bit, una variabile puntatore occupra 4 byte.
+Appena dichiarati i puntatori sono inizializzati a NULL.
+Flusso di dati: è il percorso dei dati all'interno di un sistema, che può essere prelevato e inserito.
+Flusso di controllo: ordine in cui le istruzioni vengono eseguide nel codice sorgente.
+Flusso input/outout: gestisce i dati in entrata ed in uscita.
+
+funzioni di input:
+scanf(const char *format, ...);
+getc(FILE *stream);
+getchar(stdin);  //stdinput = tastiera
+
+funzioni di output:
+printf(const char *format, ...);
+putc(int c, FILE *stream);
+putchar(int c, stdout);  //stdoutput = monitor
