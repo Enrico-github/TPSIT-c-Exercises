@@ -1,0 +1,29 @@
+l'FD (File Descriptor) é una variabile di tipo intero univoco che viene assegnata dal sistema operativo.
+
+FILE *fopen(const char *filename, const char *mode);
+
+"r"	Apre un file per la lettura (deve esistere).
+"w"	Apre un file per la scrittura (crea un nuovo file o sovrascrive quello esistente).
+"a"	Apre un file per l'aggiunta (crea un nuovo file se non esiste).
+"r+"	Apre un file per lettura e scrittura (deve esistere).
+"w+"	Apre un file per lettura e scrittura (crea un nuovo file o sovrascrive quello esistente).
+"a+"	Apre un file per lettura e scrittura in modalità append (crea un nuovo file se non esiste).
+
+size_t fread(void *ptr, size_t size, size_t count, FILE *stream);
+
+ptr: Puntatore all'area di memoria dove verranno memorizzati i dati letti.
+size: Dimensione, in byte, di ogni elemento da leggere.
+count: Numero di elementi da leggere.
+stream: Puntatore al file (FILE *) da cui leggere i dati.
+
+size_t fwrite(const void *ptr, size_t size, size_t count, FILE *stream);
+
+ptr: Puntatore ai dati da scrivere nel file.
+size: Dimensione, in byte, di ogni elemento da scrivere.
+count: Numero di elementi da scrivere.
+stream: Puntatore al file (FILE *) in cui scrivere i dati.
+
+int fclose(FILE *stream);
+
+stream: Puntatore al file (FILE *) da chiudere.
+
