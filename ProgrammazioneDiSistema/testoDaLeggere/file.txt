@@ -1,0 +1,1 @@
+Questo è il file da inserire da argv[1] e contiene ciò che andrà nel file copia.txt, se l'esercizio è corretto dovreste ritrovarvi tutta questa riga nel file copia.txt
