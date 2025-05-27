@@ -10,17 +10,16 @@ fd[
 0
 p1p2[1]
 2
-p1p2[1]
+p1p2[1] --> canale duplicato con la dup nel primo posto libero
 ]
-close(p1p2[1]);
 
+close(p1p2[1]);
 fd[
 0
-
+--> canale chiuso con la close
 2
 p1p2[1]
 ]
-dup(p1p2[1]);
 
 execl, system call che serve ad eseguire un comando.
 execl("/usr/bin","cat",argv[1]);
