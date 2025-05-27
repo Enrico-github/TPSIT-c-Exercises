@@ -1,0 +1,26 @@
+Tabella di fd[
+0  stdin
+1  stdout
+2  stderr
+]
+Dup, è una system call che prende in input un file descriptor, prende il contenuto della prima cella e lo duplica nella prima cella libera.
+
+dup(p1p2[1]);
+fd[
+0
+p1p2[1]
+2
+p1p2[1]
+]
+close(p1p2[1]);
+
+fd[
+0
+
+2
+p1p2[1]
+]
+dup(p1p2[1]);
+
+execl, system call che serve ad eseguire un comando.
+execl("/usr/bin","cat",argv[1]);
