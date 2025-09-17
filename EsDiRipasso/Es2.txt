@@ -1,0 +1,171 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// Funzione per verificare se una stringa contiene solo lettere
+int soloLettere(char str[]) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!isalpha(str[i])) { // Controlla se non è una lettera
+            return 0; // Restituisce 0 se la stringa contiene caratteri non alfabetici
+        }
+    }
+    return 1; // Restituisce 1 se contiene solo lettere
+}
+
+// Funzione per contare quante volte una lettera appare nella stringa
+int contaLettera(char str[], char lettera) {
+    int count = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (tolower(str[i]) == tolower(lettera)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Funzione per creare due nuove stringhe: una con lettere di posizione pari e una con lettere di posizione dispari
+void creaStringhePariDispari(char str[], char pari[], char dispari[]) {
+    int j_pari = 0, j_dispari = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (i % 2 == 0) {
+            pari[j_pari++] = str[i];
+        } else {
+            dispari[j_dispari++] = str[i];
+        }
+    }
+    pari[j_pari] = '\0';
+    dispari[j_dispari] = '\0';
+}
+
+// Funzione per verificare se la stringa contiene lettere doppie consecutive
+int contieneDoppie(char str[]) {
+    for (int i = 0; str[i] != '\0' && str[i + 1] != '\0'; i++) {
+        if (tolower(str[i]) == tolower(str[i + 1])) {
+            return 1; // Restituisce 1 se trova doppie lettere
+        }
+    }
+    return 0; // Restituisce 0 se non ci sono doppie lettere
+}
+
+// Funzione per determinare la stringa più lunga e più corta
+void lunghezzaStringhe(char str1[], char str2[]) {
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
+
+    if (len1 > len2) {
+        printf("La prima stringa è più lunga di %d caratteri.\n", len1 - len2);
+        printf("La seconda stringa è più corta di %d caratteri.\n", len2 - len1);
+    } else if (len1 < len2) {
+        printf("La seconda stringa è più lunga di %d caratteri.\n", len2 - len1);
+        printf("La prima stringa è più corta di %d caratteri.\n", len1 - len2);
+    } else {
+        printf("Le due stringhe hanno la stessa lunghezza.\n");
+    }
+}
+
+// Funzione per trovare le lettere comuni tra due stringhe
+void lettereComuni(char str1[], char str2[]) {
+    printf("Lettere comuni: ");
+    for (int i = 0; str1[i] != '\0'; i++) {
+        for (int j = 0; str2[j] != '\0'; j++) {
+            if (tolower(str1[i]) == tolower(str2[j])) {
+                printf("%c ", str1[i]);
+                break;
+            }
+        }
+    }
+    printf("\n");
+}
+
+// Funzione per contare le vocali in una stringa
+int contaVocali(char str[]) {
+    int count = 0;
+    char vocali[] = "aeiouAEIOU";
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (strchr(vocali, str[i])) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Funzione per contare le consonanti in una stringa
+int contaConsonanti(char str[]) {
+    int count = 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (isalpha(str[i]) && !strchr("aeiouAEIOU", str[i])) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    char str1[100], str2[100], lettera, pari[100], dispari[100];
+    int scelta;
+
+    // Primo input stringa
+    printf("Inserisci la prima stringa: ");
+    fgets(str1, sizeof(str1), stdin);
+    str1[strcspn(str1, "\n")] = '\0'; // Rimuove il newline
+
+    // Verifica se la stringa contiene solo lettere
+    if (soloLettere(str1)) {
+        printf("La stringa contiene solo lettere.\n");
+    } else {
+        printf("La stringa contiene caratteri non alfabetici.\n");
+    }
+
+    // 2) Conta la lettera scelta
+    printf("Inserisci la lettera da contare: ");
+    scanf("%c", &lettera);
+    getchar(); // Consuma il newline residuo
+    printf("La lettera '%c' appare %d volte.\n", lettera, contaLettera(str1, lettera));
+
+    // 3) Crea due stringhe con lettere pari e dispari
+    creaStringhePariDispari(str1, pari, dispari);
+    printf("Lettere di posizione pari: %s\n", pari);
+    printf("Lettere di posizione dispari: %s\n", dispari);
+
+    // 4) Verifica se contiene lettere doppie consecutive
+    if (contieneDoppie(str1)) {
+        printf("La stringa contiene lettere doppie consecutive.\n");
+    } else {
+        printf("La stringa non contiene lettere doppie consecutive.\n");
+    }
+
+    // Inserisci la seconda stringa
+    printf("\nInserisci la seconda stringa: ");
+    fgets(str2, sizeof(str2), stdin);
+    str2[strcspn(str2, "\n")] = '\0'; // Rimuove il newline
+
+    // 1) Lunghezza della prima e della seconda stringa
+    lunghezzaStringhe(str1, str2);
+
+    // 2) Lettere comuni tra le due stringhe
+    lettereComuni(str1, str2);
+
+    // 3) Controlla quale stringa ha più vocali
+    int vocaliStr1 = contaVocali(str1);
+    int vocaliStr2 = contaVocali(str2);
+    if (vocaliStr1 > vocaliStr2) {
+        printf("La prima stringa contiene più vocali (%d contro %d).\n", vocaliStr1, vocaliStr2);
+    } else if (vocaliStr1 < vocaliStr2) {
+        printf("La seconda stringa contiene più vocali (%d contro %d).\n", vocaliStr2, vocaliStr1);
+    } else {
+        printf("Le due stringhe contengono lo stesso numero di vocali.\n");
+    }
+
+    // 4) Controlla quale stringa ha più consonanti
+    int consonantiStr1 = contaConsonanti(str1);
+    int consonantiStr2 = contaConsonanti(str2);
+    if (consonantiStr1 > consonantiStr2) {
+        printf("La prima stringa contiene più consonanti (%d contro %d).\n", consonantiStr1, consonantiStr2);
+    } else if (consonantiStr1 < consonantiStr2) {
+        printf("La seconda stringa contiene più consonanti (%d contro %d).\n", consonantiStr2, consonantiStr1);
+    } else {
+        printf("Le due stringhe contengono lo stesso numero di consonanti.\n");
+    }
+
+    return 0;
+}
