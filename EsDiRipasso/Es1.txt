@@ -1,0 +1,244 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MAX_SIZE 100
+
+// Funzione per stampare un array
+void stampaArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+// Funzione per invertire un array
+void invertiArray(int arr[], int size) {
+    for (int i = 0; i < size / 2; i++) {
+        int temp = arr[i];
+        arr[i] = arr[size - 1 - i];
+        arr[size - 1 - i] = temp;
+    }
+}
+
+// Funzione per calcolare la somma e la media di un array
+void sommaEMedia(int arr[], int size) {
+    int somma = 0;
+    for (int i = 0; i < size; i++) {
+        somma += arr[i];
+    }
+    printf("Somma: %d\n", somma);
+    printf("Media: %.2f\n", (float)somma / size);
+}
+
+// Funzione per stampare i numeri pari
+void numeriPari(int arr[], int size) {
+    printf("Numeri pari: ");
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 == 0) {
+            printf("%d ", arr[i]);
+        }
+    }
+    printf("\n");
+}
+
+// Funzione per stampare i numeri dispari
+void numeriDispari(int arr[], int size) {
+    printf("Numeri dispari: ");
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0) {
+            printf("%d ", arr[i]);
+        }
+    }
+    printf("\n");
+}
+
+// Funzione per cercare un numero in un array
+void cercaNumero(int arr[], int size, int num) {
+    int trovato = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == num) {
+            printf("Numero %d trovato in posizione %d\n", num, i);
+            trovato = 1;
+            break;
+        }
+    }
+    if (!trovato) {
+        printf("Numero %d non trovato.\n", num);
+    }
+}
+
+// Funzione per eliminare un elemento in un array
+void eliminaElemento(int arr[], int *size, int num) {
+    int trovato = 0;
+    for (int i = 0; i < *size; i++) {
+        if (arr[i] == num) {
+            for (int j = i; j < *size - 1; j++) {
+                arr[j] = arr[j + 1];
+            }
+            (*size)--;
+            trovato = 1;
+            break;
+        }
+    }
+    if (!trovato) {
+        printf("Elemento %d non trovato per la rimozione.\n", num);
+    } else {
+        printf("Elemento %d eliminato.\n", num);
+    }
+}
+
+// Funzione per alternare gli elementi a coppie
+void alternaElementi(int arr[], int size) {
+    for (int i = 0; i < size - 1; i += 2) {
+        int temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+    }
+}
+
+// Funzione per ordinare l'array (Bubble Sort)
+void ordinaArray(int arr[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+// Funzione per generare un array casuale
+void generaArrayCasuale(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % 100; // Numero casuale tra 0 e 99
+    }
+}
+
+int main() {
+    srand(time(NULL));
+
+    int arr[MAX_SIZE], size = 0, choice, num;
+
+    while (1) {
+        printf("\n--- Menù ---\n");
+        printf("1) Visualizza array\n");
+        printf("2) Visualizza array invertito\n");
+        printf("3) Somma e media\n");
+        printf("4) Numeri pari\n");
+        printf("5) Numeri dispari\n");
+        printf("6) Cercare un numero\n");
+        printf("7) Eliminare un elemento\n");
+        printf("8) Alternare elementi\n");
+        printf("9) Ordinare array\n");
+        printf("10) Genera array casuale\n");
+        printf("11) Esci\n");
+        printf("Scegli un'opzione: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                if (size > 0) {
+                    stampaArray(arr, size);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 2:
+                if (size > 0) {
+                    invertiArray(arr, size);
+                    stampaArray(arr, size);
+                    invertiArray(arr, size); // Riporta l'array originale
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 3:
+                if (size > 0) {
+                    sommaEMedia(arr, size);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 4:
+                if (size > 0) {
+                    numeriPari(arr, size);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 5:
+                if (size > 0) {
+                    numeriDispari(arr, size);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 6:
+                printf("Inserisci il numero da cercare: ");
+                scanf("%d", &num);
+                if (size > 0) {
+                    cercaNumero(arr, size, num);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 7:
+                printf("Inserisci il numero da eliminare: ");
+                scanf("%d", &num);
+                if (size > 0) {
+                    eliminaElemento(arr, &size, num);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 8:
+                if (size > 0) {
+                    alternaElementi(arr, size);
+                    stampaArray(arr, size);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 9:
+                if (size > 0) {
+                    ordinaArray(arr, size);
+                    stampaArray(arr, size);
+                } else {
+                    printf("L'array è vuoto.\n");
+                }
+                break;
+
+            case 10:
+                printf("Inserisci la dimensione dell'array (max %d): ", MAX_SIZE);
+                scanf("%d", &size);
+                if (size > 0 && size <= MAX_SIZE) {
+                    generaArrayCasuale(arr, size);
+                    printf("Array generato casualmente:\n");
+                    stampaArray(arr, size);
+                } else {
+                    printf("Dimensione non valida.\n");
+                }
+                break;
+
+            case 11:
+                printf("Uscita dal programma.\n");
+                return 0;
+
+            default:
+                printf("Opzione non valida.\n");
+        }
+    }
+
+    return 0;
+}
