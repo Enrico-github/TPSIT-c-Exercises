@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2) // controllo errori nelgi argomenti
+    if (argc != 2) // controllo errori negli argomenti
     {
         printf("Numero argomenti sbagliato\n");
         exit(1);
