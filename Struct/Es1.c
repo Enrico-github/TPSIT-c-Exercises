@@ -42,7 +42,7 @@ void Inserimento(Persona p[], int *nPersone)
         printf("\nInserisci i dati della persona %d:\n", i + 1);
 
         printf("Nome: ");
-        scanf("%s", p[i].nome); // Legge una parola (max 9 caratteri + terminatore)
+        scanf("%s", p[i].nome); 
 
         printf("Cognome: ");
         scanf("%s", p[i].cognome);
