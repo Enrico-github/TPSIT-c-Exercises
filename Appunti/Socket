@@ -1,0 +1,2 @@
+La socket è un canale di comunicazione tra server e client, è formata da due grandezze: un indirizzo IP e la sua porta.
+Il server è sempre in ascolto a meno che non sia in manutenzione, per ricevere dati dal client.
