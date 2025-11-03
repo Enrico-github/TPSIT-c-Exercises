@@ -1,2 +1,6 @@
 La socket è un canale di comunicazione tra server e client, è formata da due grandezze: un indirizzo IP e la sua porta.
 Il server è sempre in ascolto a meno che non sia in manutenzione, per ricevere dati dal client.
+Quando si fa una comunicazione server client bisogna sempre chiudere il canale di comunicazione una volta terminata la comunicazione stessa.
+0-1023  porte standard -> servizi comuni
+1024-49151  porte registrate -> programmi specifici
+49152-65535  porte effimere -> servizi client
