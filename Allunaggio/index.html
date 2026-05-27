@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Allunaggio — Simulatore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="topbar">
+  <span id="title">⬡ APOLLO SIMULATOR</span>
+  <span id="topbar-right">ZUCCHETTI ACADEMY — L'ALLUNAGGIO</span>
+</div>
+
+<div id="game-wrap">
+  <canvas id="canvas"></canvas>
+
+  <div id="hud">
+    <div class="hud-section">
+      <div class="hud-label">Telemetria</div>
+      <div class="hud-row" style="margin-top:6px"><span class="hud-key">V. verticale</span><span class="hud-val ok" id="h-vy">—</span></div>
+      <div class="hud-row"><span class="hud-key">m/s</span></div>
+      <div class="hud-row" style="margin-top:6px"><span class="hud-key">V. orizzontale</span><span class="hud-val ok" id="h-vx">—</span></div>
+      <div class="hud-row"><span class="hud-key">m/s</span></div>
+    </div>
+
+    <div class="hud-section">
+      <div class="hud-label">Carburante <span id="thrust-light"></span></div>
+      <div class="hud-row"><span class="hud-key">Rimasto</span><span class="hud-val ok" id="h-fuel">100%</span></div>
+      <div class="bar-track"><div class="bar-fill" id="fuel-bar" style="width:100%; background:var(--green);"></div></div>
+    </div>
+
+    <div class="hud-section">
+      <div class="hud-label">Forza Gravitazionale</div>
+      <div class="hud-row"><span class="hud-key">gL</span><span class="hud-val ok">1.66 m/s²</span></div>
+      <div class="hud-row"><span class="hud-key">Fg</span><span class="hud-val ok" id="h-fg">—</span></div>
+      <div class="phys-formula">Fg = G·m₁·m₂ / d²<br>G = 6.674×10⁻¹¹</div>
+    </div>
+
+    <div class="hud-section">
+      <div class="hud-label">Limiti di Atterraggio</div>
+      <div class="hud-row"><span class="hud-key">Max V.vert.</span><span class="hud-val ok">2.0 m/s</span></div>
+      <div class="hud-row"><span class="hud-key">Max V.oriz.</span><span class="hud-val ok">1.5 m/s</span></div>
+    </div>
+
+    <div class="hud-section">
+      <div class="hud-label">Controlli</div>
+      <div class="ctrl-row"><span class="ctrl-key">↑</span> o <span class="ctrl-key">W</span> — Propulsore</div>
+      <div class="ctrl-row"><span class="ctrl-key">←</span><span class="ctrl-key">→</span> — Direzione</div>
+      <div class="ctrl-row"><span class="ctrl-key">R</span> — Riavvia</div>
+    </div>
+
+    <div class="hud-section">
+      <div class="hud-label">Tempo</div>
+      <div class="hud-row"><span class="hud-key">T+</span><span class="hud-val ok" id="h-time">0.0 s</span></div>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="overlay" id="ov-menu">
+    <div class="scanline"></div>
+    <h1 style="color:var(--blue); font-size:22px; letter-spacing:5px;">L'ALLUNAGGIO</h1>
+    <p style="color:var(--blue); margin-bottom:18px; font-size:11px;">SIMULATORE DI DISCESA LUNARE</p>
+    <p>Pilota il modulo lunare e atterra sulle piattaforme illuminate.<br>Tieni la velocità di discesa sotto <strong>100.0 m/s</strong> e quella orizzontale sotto <strong>100 m/s</strong>.<br>(Realisticamente sotto i 2 m/s, ma la simulazone sarebbe impossibile)</p>
+    <div class="stats">
+      gravità lunare <span>1.66 m/s²</span> &nbsp;|&nbsp; massa lunare <span>7.348×10²² kg</span><br>
+    </div>
+    <button onclick="startGame()">INIZIA MISSIONE</button>
+  </div>
+
+  <!-- PAUSE -->
+  <div class="overlay" id="ov-pause" style="display:none;">
+    <div class="scanline"></div>
+    <h1 style="color:var(--blue); font-size:22px; letter-spacing:5px;">PAUSA</h1>
+    <p style="color:var(--blue); margin-bottom:18px; font-size:11px;">MISSIONE IN ATTESA</p>
+    <p>Premi <strong>ESC</strong> per riprendere.</p>
+    <div style="margin-top: 20px; display:flex; gap:12px; justify-content:center;">
+      <button onclick="togglePause()">RIPRENDI</button>
+      <button class="secondary" onclick="openMenu()">MENU</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="overlay" id="ov-success" style="display:none;">
+    <div class="scanline"></div>
+    <h1 class="success">ALLUNAGGIO RIUSCITO</h1>
+    <p>Il Modulo Lunare ha toccato terra in sicurezza.</p>
+    <div class="stats" id="stats-success"></div>
+    <button onclick="startGame()">NUOVA MISSIONE</button>
+  </div>
+
+  <!-- CRASH -->
+  <div class="overlay" id="ov-crash" style="display:none;">
+    <div class="scanline"></div>
+    <h1 class="fail">IMPATTO</h1>
+    <p id="crash-reason">Velocità troppo elevata all'atterraggio.</p>
+    <div class="stats" id="stats-crash"></div>
+    <button onclick="startGame()">RIPROVA</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
