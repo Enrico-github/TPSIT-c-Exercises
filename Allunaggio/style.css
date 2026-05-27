@@ -1,0 +1,235 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green: #00ff88;
+  --red:   #ff3366;
+  --amber: #ffb300;
+  --blue:  #00cfff;
+  --dim:   rgba(0, 255, 136, 0.18);
+  --bg:    #03050f;
+}
+
+body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: monospace;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* TOP BAR */
+#topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px;
+  border-bottom: 1px solid var(--dim);
+  background: rgba(0, 20, 10, 0.7);
+  flex-shrink: 0;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+#topbar-right {
+  font-size: 11px;
+  color: rgba(0, 255, 136, 0.5);
+}
+
+/* GAME AREA */
+#game-wrap {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+#canvas {
+  flex: 1;
+  display: block;
+  cursor: none;
+}
+
+/* HUD PANEL */
+#hud {
+  width: 210px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--dim);
+  background: rgba(0, 10, 5, 0.85);
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.hud-section {
+  border: 1px solid var(--dim);
+  padding: 8px 10px;
+  border-radius: 3px;
+}
+
+.hud-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(0, 255, 136, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.hud-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+.hud-key { color: rgba(0, 255, 136, 0.55); }
+
+.hud-val {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.hud-val.warn   { color: var(--amber); }
+.hud-val.danger { color: var(--red); }
+.hud-val.ok     { color: var(--green); }
+
+/* Fuel bar */
+.bar-track {
+  height: 6px;
+  background: rgba(0, 255, 136, 0.1);
+  border-radius: 2px;
+  margin-top: 4px;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.1s, background 0.3s;
+}
+
+/* Thrust indicator */
+#thrust-light {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #111;
+  border: 1px solid var(--dim);
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+#thrust-light.on {
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+/* Controls hint */
+.ctrl-row {
+  font-size: 10px;
+  color: rgba(0, 255, 136, 0.4);
+  margin-bottom: 3px;
+}
+
+.ctrl-key {
+  border: 1px solid var(--dim);
+  padding: 1px 4px;
+  border-radius: 2px;
+  color: rgba(0, 255, 136, 0.7);
+}
+
+.phys-formula {
+  font-size: 9px;
+  color: rgba(0, 200, 255, 0.45);
+  line-height: 1.7;
+  margin-top: 4px;
+}
+
+/* OVERLAYS */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3, 5, 15, 0.93);
+  z-index: 10;
+  text-align: center;
+  padding: 24px;
+}
+
+.overlay h1 {
+  font-size: 26px;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+  font-family: monospace;
+}
+
+.overlay h1.success { color: var(--green); }
+.overlay h1.fail    { color: var(--red); }
+.overlay h1.neutral { color: var(--blue); }
+
+.overlay p {
+  font-size: 13px;
+  color: rgba(0, 255, 136, 0.7);
+  margin-bottom: 6px;
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+.overlay .stats {
+  margin: 16px 0;
+  font-size: 12px;
+  color: rgba(0, 255, 136, 0.6);
+  line-height: 2.2;
+}
+
+.overlay .stats span {
+  color: var(--green);
+  font-weight: bold;
+}
+
+.overlay .btn-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.overlay button {
+  padding: 9px 28px;
+  background: transparent;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.overlay button:hover {
+  background: rgba(0, 255, 136, 0.1);
+}
+
+.overlay button.secondary {
+  border-color: rgba(0, 255, 136, 0.35);
+  color: rgba(0, 255, 136, 0.5);
+}
+
+.overlay button.secondary:hover {
+  background: rgba(0, 255, 136, 0.05);
+  color: var(--green);
+  border-color: var(--green);
+}
